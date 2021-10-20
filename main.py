@@ -20,6 +20,8 @@ def nr_negative(l):
 
 def test_nr_negative():
     assert(nr_negative([1,-2,-3,-4,5,6,0,-8]))==[-2,-3,-4,-8]
+    assert(nr_negative([-2,-3,-200,2,3,4,-5]))==[-2,-3,-200,-5]
+    assert(nr_negative([-1,-2,-3]))==[-1,-2,-3]
 test_nr_negative()
 
 def ultima_cifra(l,n):
@@ -40,6 +42,7 @@ def ultima_cifra(l,n):
 def test_ultima_cifra():
     assert(ultima_cifra([1,6,34,68,30,48,20],8))==48
     assert(ultima_cifra([1,2,3,4,5,6,7,8,28,37,67,3,9],7))==7
+    assert(ultima_cifra([10,20,30,40,50],0))==10
 test_ultima_cifra()
 
 def check_if_prime(n):
@@ -80,10 +83,52 @@ def super_prime(l):
 def test_super_prime():
     assert(super_prime([173,239]))==[239]
     assert(super_prime([23,25,37,29]))==[23,37,29]
+    assert(super_prime([239,173,25,59]))==[239,59]
 test_super_prime()
 
+def cmmdc(a,b):
+    while a!=b:
+        if a>b:
+            a=a-b
+        else:
+            b=b-a
+    return a
+def test_cmmdc():
+    assert(cmmdc(12,24))==12
+    assert(cmmdc(50,25))==25
+    assert(cmmdc(100,22))==2
+test_cmmdc()
 
 
+def cmmmdc_negativ(l):
+    '''
+    Afiseaza lista obtinuta in care numerele pozitive au fost inlocuite de cmmdcul lor iar cele negative de numarul cu cifrele in ordine inversa
+    param:l=lista
+    return:rezultat=lista procesata
+    '''
+    for i in range(len(l)-1):
+        for j in range(len(l)):
+            if l[i]>0 and l[j]>0:
+                cmmdc1=cmmdc(l[i],l[j])
+    for i in range(len(l)):
+        if l[i]>0:
+            l[i]=cmmdc1
+        else:
+            aux=l[i]
+            aux=-aux
+            inv=0
+            while aux:
+                inv=inv*10+int(aux%10)
+                aux=int(aux/10)
+            l[i]=-inv
+    print(l)
+    return l
+
+def test_cmmmdc_negativ():
+    assert(cmmmdc_negativ([-76,12,24]))==[-67,12,12]
+    assert(cmmmdc_negativ([-32,20,15]))==[-23,5,5]
+    assert(cmmmdc_negativ([-123,-15,-16,21,22,23]))==[-321,-51,-61,1,1,1]
+test_cmmmdc_negativ()
 
 def main():
     while True:
@@ -91,7 +136,7 @@ def main():
         print("2. Afiseaza toate numerele negative nenule din lista")
         print("3. Afiseaza minimul din lista cu ultima cifra egala cu un o cifra n data,citita de la tastatura")
         print("4. Afiseaza numerele super prime din lista")
-        print("5. ")
+        print("5. Afiseaza lista obtinuta dupa inlocuirea numerelor pozitive cu cmmdcul lor si a celor negative cu inversul lor")
         print("a. Afisare lista") #show all
         print("x. Iesire")
 
@@ -107,7 +152,7 @@ def main():
         elif optiune == "4":
             print(super_prime(l))
         elif optiune == "5":
-            print()
+            print(cmmmdc_negativ(l))
         elif optiune == "a":
             print(l)
         elif optiune == "x":
