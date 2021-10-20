@@ -121,7 +121,6 @@ def cmmmdc_negativ(l):
                 inv=inv*10+int(aux%10)
                 aux=int(aux/10)
             l[i]=-inv
-    print(l)
     return l
 
 def test_cmmmdc_negativ():
